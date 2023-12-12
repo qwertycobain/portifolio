@@ -1,34 +1,26 @@
 const express = require('express')
 
 
-const app = express();
+const {v4: uuidv4, v4} = require('uuid')
+
+const app = express()
+app.use(express.json())
+const costumers = []
+
+const port = 4000 
 
 
-app.get('/courses',(req, res)=>{
-    return res.json(["curso1","curso2","curso3"])
+app.post('/conta',(request, response )=>{
+    const {cpf, name } = request.body 
+
+    const id = uuidv4()
+
+    console.log(id)
+    return response.status(200).send("OK")
+
+
 })
 
-app.post('/courses', (req, res)=>{
-    return res.json("lalala")
+app.listen(port, () =>{
+    console.log ("ready to rumble! ==>>", + port)
 })
-
-app.put('/courses/:id', (req, res)=>{
-    const params = req.params
-    console.log(params)
-    return res.send("lalala", params )
-
-})
-
-app.patch('/courses/:id', (req, res)=>{
-    return res.json(["curso1", "curso2"])
-})
-
-app.delete("/courses/:id", (req, res)=>{
-    return res.json(['curso1', 'curso2'])
-})
-
-
-
-
-app.listen(3000,()=> console.log("Deus abencoe a america"))
-
